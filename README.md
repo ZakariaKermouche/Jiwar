@@ -1,10 +1,11 @@
-# dir_khir
+# Jiwar
 
-A new Flutter application.
+A new mobile application, specialized on creating and participating in volunteer event.
+This application is programmed using flutter, and firebase.
+We tried to program it in 4 days.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
