@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "867023587226",
+    "firebase_url": "https://jiwar-278219.firebaseio.com",
+    "project_id": "jiwar-278219",
+    "storage_bucket": "jiwar-278219.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867023587226:android:a0dac3f208f50f60879c23",
+        "android_client_info": {
+          "package_name": "com.exemple.dir_khir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867023587226-ds68j8vilv164gldhk6i990r8kgtlm2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVEhVZuGf0xnTkA1Yi3zAm7wWd4Mxhkd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867023587226-ds68j8vilv164gldhk6i990r8kgtlm2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
