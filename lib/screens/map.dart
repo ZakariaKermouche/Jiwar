@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:dir_khir/model/Category.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 //import 'package:search_map_place/search_map_place.dart';
 
 Category choice = Category();
+final Map<String, Marker> _markers = {};
+
 
 class MapPage extends StatefulWidget {
   static String id = 'map';
@@ -23,7 +26,7 @@ class _MapPageState extends State<MapPage> {
         backgroundColor: Colors.white,
         body: Stack(
           children: <Widget>[
-            Map(),
+            MyMap(),
             Column(
               children: <Widget>[
                 SizedBox(height: 10,),
@@ -99,44 +102,79 @@ class _CategoryRowState extends State<CategoryRow> {
 }
 
 
-class Map extends StatefulWidget {
+class MyMap extends StatefulWidget {
 
   @override
-  _MapState createState() => _MapState();
+  _MyMapState createState() => _MyMapState();
 }
 
-class _MapState extends State<Map> {
+class _MyMapState extends State<MyMap> {
   GoogleMapController controller;
-  Marker darnaMarker=Marker(
-    markerId: MarkerId('darzo'),
-    position: LatLng(36.733332, 3.093334),
-    infoWindow: InfoWindow(title: 'Los Zozilos'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-    ),
-  );
+//  Marker darnaMarker=Marker(
+//    markerId: MarkerId('darzo'),
+//    position: LatLng(36.733332, 3.093334),
+//    infoWindow: InfoWindow(title: 'Los Zozilos'),
+//    icon: BitmapDescriptor.defaultMarkerWithHue(
+//    BitmapDescriptor.hueViolet,
+//    ),
+//  );
 
   _onMapCreated(controller) {
       Completer<GoogleMapController> _controller = Completer();
     _controller.complete(controller);
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: GoogleMap(
+    return Scaffold(
+      //height: MediaQuery.of(context).size.height,
+      //width: MediaQuery.of(context).size.width,
+      /*child: */body: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
         onMapCreated:_onMapCreated(controller),
-        markers:{
-          darnaMarker,
-       }
-      )
+        markers: _markers.values.toSet(),
+//        {
+//          darnaMarker,
+//       }
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {          print('kkjjjk');
+
+        var currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+          setState(() {
+            //_markers.clear();
+            print('kkkkk');
+
+            final marker = Marker(
+              markerId: MarkerId("curr_loc"),
+              position: LatLng(currentLocation.latitude, currentLocation.longitude),
+              infoWindow: InfoWindow(title: 'Your Location'),
+            );
+            _markers["Current Location"] = marker;
+          });
+        },//_getLocation(),
+        tooltip: 'Get Location',
+        child: Icon(Icons.location_on),
+      ),
     );
     
     
+  }
+  _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+
+    setState(() {
+      _markers.clear();
+      final marker = Marker(
+        markerId: MarkerId("curr_loc"),
+        position: LatLng(currentLocation.latitude, currentLocation.longitude),
+        infoWindow: InfoWindow(title: 'Your Location'),
+      );
+      _markers["Current Location"] = marker;
+    });
   }
 }
 
