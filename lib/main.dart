@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jiwar',
-      initialRoute: NavigationPage.id,
+      initialRoute: Onboard.id,
       routes: {
         Onboard.id: (context) => Onboard(),
         LoginPage.id: (context) => LoginPage(),
