@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:dir_khir/model/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart' as local;
 
 
 //import 'package:search_map_place/search_map_place.dart';
@@ -110,6 +111,8 @@ class MyMap extends StatefulWidget {
 
 class _MyMapState extends State<MyMap> {
   GoogleMapController controller;
+  static LatLng _initialPosition;
+  var location = new local.Location();
 //  Marker darnaMarker=Marker(
 //    markerId: MarkerId('darzo'),
 //    position: LatLng(36.733332, 3.093334),
@@ -119,10 +122,42 @@ class _MyMapState extends State<MyMap> {
 //    ),
 //  );
 
+  @override
+  void initState(){
+    super.initState();
+    _currentLocalisation();
+  }
+
   _onMapCreated(controller) {
       Completer<GoogleMapController> _controller = Completer();
     _controller.complete(controller);
   }
+
+  Future _getLocation() async {
+    var currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+
+    setState(() {
+      _markers.clear();
+      final marker = Marker(
+        markerId: MarkerId("curr_loc"),
+        position: LatLng(36.79155991, 3.2855173),
+        infoWindow: InfoWindow(title: 'Your Location'),
+      );
+      _markers["Current Location"] = marker;
+    });
+  }
+
+  _currentLocalisation() async{
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _initialPosition = LatLng(position.latitude, position.longitude);
+    });
+  }
+
+  static final CameraPosition _currentPosition = CameraPosition(
+    target: LatLng(_initialPosition.latitude, _initialPosition.longitude),
+    zoom: 12,
+  );
 
 
   @override
@@ -132,7 +167,7 @@ class _MyMapState extends State<MyMap> {
       //width: MediaQuery.of(context).size.width,
       /*child: */body: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition: CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
+        initialCameraPosition: CameraPosition(target: _initialPosition,zoom: 12),//CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
         onMapCreated:_onMapCreated(controller),
         markers: _markers.values.toSet(),
 //        {
@@ -140,42 +175,30 @@ class _MyMapState extends State<MyMap> {
 //       }
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {          print('kkjjjk');
-
-        var currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-          setState(() {
-            //_markers.clear();
-            print('kkkkk');
-
-            final marker = Marker(
-              markerId: MarkerId("curr_loc"),
-              position: LatLng(currentLocation.latitude, currentLocation.longitude),
-              infoWindow: InfoWindow(title: 'Your Location'),
-            );
-            _markers["Current Location"] = marker;
-          });
-        },//_getLocation(),
+        onPressed: _getLocation,
+//        onPressed: () async {
+//
+//        var currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+//          setState(() {
+//            //_markers.clear();
+//
+//
+//            final marker = Marker(
+//              markerId: MarkerId("curr_loc"),
+//              position: LatLng(currentLocation.latitude, currentLocation.longitude),
+//              infoWindow: InfoWindow(title: 'Your Location'),
+//            );
+//            _markers["Current Location"] = marker;
+//          });
+//        },//_getLocation(),
         tooltip: 'Get Location',
         child: Icon(Icons.location_on),
       ),
     );
-    
-    
-  }
-  _getLocation() async {
-    var currentLocation = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 
-    setState(() {
-      _markers.clear();
-      final marker = Marker(
-        markerId: MarkerId("curr_loc"),
-        position: LatLng(currentLocation.latitude, currentLocation.longitude),
-        infoWindow: InfoWindow(title: 'Your Location'),
-      );
-      _markers["Current Location"] = marker;
-    });
+
   }
+
 }
 
 
