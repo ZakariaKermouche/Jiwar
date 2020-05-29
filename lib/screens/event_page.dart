@@ -50,33 +50,14 @@ class _EventPageState extends State<EventPage> {
           child: Column(
             children: <Widget>[
               Row(
-                  children: <Widget>[
-                    Expanded(child: Text(
-                      "Test",
-                    )),
-                    Expanded(child: Text("Test")),
-                  ],
+                children: <Widget>[
+                  Expanded(
+                      child: Text(
+                    "Test",
+                  )),
+                  Expanded(child: Text("Test")),
+                ],
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-
-                  children: <Widget>[
-                    Expanded(
-
-                      child: MyButton(
-                        text: 'create event',
-                        textColor: Colors.white,
-                        color: Colors.indigoAccent,
-                        tap: (){
-                          Navigator.pushNamed(context, AddEvent.id);
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              )
             ],
           ),
         ),
@@ -106,6 +87,25 @@ class _EventPageState extends State<EventPage> {
                 ),
               ],
             )),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: MyButton(
+                  text: 'create event',
+                  textColor: Colors.white,
+                  color: Color(0xffFE8A51),
+                  width: 150,
+                  tap: () {
+                    Navigator.pushNamed(context, AddEvent.id);
+                  },
+                ),
+              )
+            ],
+          ),
+        )
       ],
     );
   }

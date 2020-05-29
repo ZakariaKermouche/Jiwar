@@ -14,12 +14,6 @@ class _RoomsPageState extends State<RoomsPage> {
       child: Scaffold(
         body: Column(
           children: <Widget>[
-            Text(
-              "Rooms",
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -42,15 +36,50 @@ class _RoomsPageState extends State<RoomsPage> {
                         ),
                       ),
                     ),
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
-                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(
+                        name: "Team Bniwen",
+                        lastmessage: "bnina 7it",
+                        time: "12h30"), //+photo discusiion apres
                   ],
                 ),
               ),

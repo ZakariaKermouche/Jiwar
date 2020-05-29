@@ -90,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                           text: 'SING IN',
                           color: Color(0xffFE8A51),
                           textColor: Colors.white,
+                          width: 200,
                           tap: () async {
                             try {
                               final login =

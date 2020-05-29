@@ -23,10 +23,9 @@ class _NavigationPageState extends State<NavigationPage> {
           elevation: 1.0,
           leading: Padding(
             padding: const EdgeInsets.only(right: 12.0),
-            child: Icon(
-              Icons.settings,
-              size: 30,
-              color: Color(0xff7D2AE6),
+            child: IconButton(
+              icon: Icon(Icons.settings, color: Color(0xff7D2AE6)),
+              onPressed: () => {},
             ),
           ),
           title: SizedBox(height: 50.0, child: Image.asset("images/logo.PNG")),
@@ -35,9 +34,9 @@ class _NavigationPageState extends State<NavigationPage> {
               padding: const EdgeInsets.only(right: 12.0),
               child: CircleAvatar(
                 maxRadius: 20,
-                child: Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
+                child: IconButton(
+                  icon: Icon(Icons.account_circle, color: Colors.white),
+                  onPressed: () => {},
                 ),
                 backgroundColor: Color(0xff7D2AE6),
               ),

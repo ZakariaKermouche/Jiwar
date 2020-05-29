@@ -179,7 +179,7 @@ class _MyMapState extends State<MyMap> {
       floatingActionButton: FloatingActionButton(
         onPressed: _getLocation,
         tooltip: 'Get Location',
-        child: Icon(Icons.location_on),
+        child: Icon(Icons.location_on, color: Colors.white),
       ),
     );
   }
@@ -198,7 +198,7 @@ class _SearchState extends State<Search> {
         hintColor: Colors.white,
       ),
       child: Container(
-        height: 42,
+        height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
         ),

@@ -103,6 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           text: 'REGISTER',
                           color: Color(0xffFE8A51),
                           textColor: Colors.white,
+                          width: 200,
                           tap: () async {
                             try {
                               final newUser =

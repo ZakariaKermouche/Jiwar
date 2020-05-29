@@ -7,15 +7,21 @@ class DiscussionPage extends StatefulWidget {
   @override
   _DiscussionPageState createState() => _DiscussionPageState();
 }
+/*
+        Color(0xff7D2AE6),
+        Color(0xffFE8A51),
+*/
 
 class _DiscussionPageState extends State<DiscussionPage> {
   //discussionModel disc = discussionModel.listMessages.elementAt(0);
-  String userOn = "1";//logeduser
+  String userOn = "1"; //logeduser
   List<ChatUser> messages = ChatUser.listMessages.reversed.toList();
+
   ///Backend
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
   String messageText;
+
   ///End Backend
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
               },
             )
           ],
-          backgroundColor: Colors.purple,
+          backgroundColor: Color(0xff7D2AE6),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -55,8 +61,9 @@ class _DiscussionPageState extends State<DiscussionPage> {
                       messages[index].senderID == userOn
                           ? Container()
                           : CircleAvatar(
-                              backgroundColor: Colors.purple.shade300,
-                              child: Icon(Icons.account_circle),
+                              backgroundColor: Color(0xff7D2AE6),
+                              child: Icon(Icons.account_circle,
+                                  color: Colors.white),
                             ),
                       Container(
                         constraints: BoxConstraints(
@@ -68,8 +75,8 @@ class _DiscussionPageState extends State<DiscussionPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: messages[index].senderID == userOn
-                              ? Colors.orange
-                              : Colors.purple,
+                              ? Color(0xffFE8A51)
+                              : Color(0xff7D2AE6),
                         ),
                         child: Text("${messages[index].message}",
                             style:
@@ -82,6 +89,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
             ),
             Row(
               children: <Widget>[
+                SizedBox(height: 20),
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
@@ -96,17 +104,22 @@ class _DiscussionPageState extends State<DiscussionPage> {
                         borderSide: BorderSide(color: Colors.purple),
                       ),
                     ),
-                    onChanged: (value){
+                    onChanged: (value) {
                       messageText = value;
                     },
                   ),
                 ),
-                FlatButton(onPressed: (){
-                  
-                },
-                    child: Icon(Icons.send, color: Colors.indigoAccent,) )
-              ],1
+                CircleAvatar(
+                  maxRadius: 28,
+                  backgroundColor: Color(0xff7D2AE6),
+                  child: IconButton(
+                    icon: Icon(Icons.send, color: Colors.white),
+                    onPressed: () => {},
+                  ),
+                ),
+              ],
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
