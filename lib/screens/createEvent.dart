@@ -1,6 +1,9 @@
 
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dir_khir/utils/component.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:dir_khir/screens/map.dart';
@@ -18,9 +21,35 @@ class AddEvent extends StatefulWidget {
 }
 
 class _AddEventState extends State<AddEvent> {
-  
+
   DateTime _date = new DateTime.now();
   TimeOfDay _time = new TimeOfDay.now();
+  String _eventTitle;
+  String _address;
+  String _description;
+  bool _coorganizer;
+
+  final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+
+  @override
+  void initState(){
+    super.initState();
+
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async{
+    try{
+      final user = await _auth.currentUser();
+      if(user != null){
+        loggedInUser = user;
+      }
+    }catch(e){
+      print(e);
+    }
+  }
   
   Future _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -51,7 +80,9 @@ class _AddEventState extends State<AddEvent> {
         // Get image URL from firebase
         final ref = FirebaseStorage().ref().child(text);
         var imageString = await ref.getDownloadURL();
-
+        setState(() {
+          eventId = loggedInUser.email + _date.toIso8601String() + _time.toString();
+        });
         // Add location and url to database
         await Firestore.instance.collection('storage').document().setData({'eventId': eventId,'url':imageString , 'location':text});
       }catch(e){
@@ -113,6 +144,9 @@ class _AddEventState extends State<AddEvent> {
                 hintText: 'Event Title',
                 labelText: 'Event Title',
               ),
+              onChanged: (value){
+                _eventTitle = value;
+              },
             ),
           ),
           SizedBox(height: 20,),
@@ -133,6 +167,7 @@ class _AddEventState extends State<AddEvent> {
               fontWeight: FontWeight.bold,
             ),
           ),
+
           SizedBox(height: 20,),
           Container(
             padding: EdgeInsets.all(8),
@@ -161,25 +196,20 @@ class _AddEventState extends State<AddEvent> {
               textAlign: TextAlign.start,
               keyboardType: TextInputType.text,
               decoration: kTextFieldDecoration,
+              onChanged: (value) {
+                _address = value;
+              },
             ),
           ),
           Container(
-            child: RaisedButton(
-              onPressed:(){
-                _selectDate(context);
-              },
-              padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(8),
+            child: MyButton(
+              text: "Select Date",
               textColor: Colors.white,
               color: Colors.indigoAccent,
-              
-              child:Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 85),
-                  child:Text(
-                    "Select The Date Of The Event",
-                    style: TextStyle(
-                    ),
-                  )
-              ),
+              tap: (){
+                _selectDate(context);
+              },
             ),
           ),
           Container(
@@ -194,64 +224,105 @@ class _AddEventState extends State<AddEvent> {
                 maxLines: maxLines,
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.text,
-
                 decoration: kTextFieldDecoration.copyWith(
                   hintText: 'Description',
                   labelText: 'Add a description to the event'
                 ),
+                onChanged: (value) {
+                  _description = value;
+                },
               ),
             ),
           ),
+          SizedBox(height: 20,),
+          Text(
+            'if you have a photo of the event, please choose it from your gallery',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Container(
-            child: RaisedButton(
-              onPressed: (){
-                getImage();
-              },
-              //padding: const EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(8),
+            child: MyButton(
+              text: "Select from Phone",
               textColor: Colors.white,
               color: Colors.indigoAccent,
-              child:Container(
-
-                  //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 85),
-                  child:Text(
-                    "Select from Phone",
-                    style: TextStyle(
-                    ),
-                  )
-              ),
+              tap: (){
+                getImage();
+                },
             ),
           ),
+          SizedBox(height: 20,),
+          Text(
+            'Do you have a co-organaizer ?',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 7,),
           Container(
-            child: RaisedButton(
-              onPressed: (){
-                _uploadImageToFirebase(_image);
-              },
-              //padding: const EdgeInsets.all(0.0),
-              textColor: Colors.white,
-              padding: EdgeInsets.all(0.0),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-              child:Container(
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          Color(0xFFFC6473),
-                          Color(0xFFFD7F5B),
-                          Color(0xFFFF9A44),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(80.0))
+            padding: EdgeInsets.all(8),
+            child:Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Expanded(
+                  child: MyButton(
+                    text: 'yes',
+                    color: Colors.indigoAccent,
+                    textColor: Colors.white,
+                    tap: (){
+                      _coorganizer = true;
+                    },
                   ),
-                  padding: EdgeInsets.fromLTRB(20,10,20, 10),
-                  child:Text(
-                    "Submit",
-                    style: TextStyle(
-                    ),
-                  )
+                ),
+              SizedBox(
+                width: 12,
               ),
+                Expanded(
+                  child: MyButton(
+                    text: 'no',
+                    color: Colors.indigoAccent,
+                    textColor: Colors.white,
+                    tap: (){
+                      _coorganizer = false;
+                    },
+                  ),
+                ),
+              ],
+              ),
+      ),
+          SizedBox(height: 7,),
+          Container(
+            padding: EdgeInsets.all(8),
+            child: MyButton(
+              text: 'Submit',
+              textColor: Colors.white,
+              color: Color(0xFFFD7F5B),
+              tap: (){
+                _uploadImageToFirebase(_image);
+                _firestore.collection('events').add(
+                  {
+                    'organizer': loggedInUser.email,
+                    'eventTitle': _eventTitle,
+                    'address': _address,
+                    //'date': _date,
+                    'description': _description,
+                    'coorganizer': _coorganizer,
+                    'photo': _image
+                  }
+                );
+              },
             ),
           ),
-        ],
-      ),
+      ]
+    ),
     );
   }
 
