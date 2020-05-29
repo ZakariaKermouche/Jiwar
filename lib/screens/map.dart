@@ -162,35 +162,22 @@ class _MyMapState extends State<MyMap> {
     return Scaffold(
       //height: MediaQuery.of(context).size.height,
       //width: MediaQuery.of(context).size.width,
-      /*child: */ body: GoogleMap(
+      /*child: */
+      body: GoogleMap(
         mapType: MapType.normal,
+
         initialCameraPosition: CameraPosition(
             target: _initialPosition,
             zoom:
                 12), //CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
         onMapCreated: _onMapCreated(controller),
+
+        //initialCameraPosition: CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),//CameraPosition(target: _initialPosition,zoom: 12),//
+        //onMapCreated:_onMapCreated(controller),
         markers: _markers.values.toSet(),
-//        {
-//          darnaMarker,
-//       }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _getLocation,
-//        onPressed: () async {
-//
-//        var currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-//          setState(() {
-//            //_markers.clear();
-//
-//
-//            final marker = Marker(
-//              markerId: MarkerId("curr_loc"),
-//              position: LatLng(currentLocation.latitude, currentLocation.longitude),
-//              infoWindow: InfoWindow(title: 'Your Location'),
-//            );
-//            _markers["Current Location"] = marker;
-//          });
-//        },//_getLocation(),
         tooltip: 'Get Location',
         child: Icon(Icons.location_on),
       ),
