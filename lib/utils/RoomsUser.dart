@@ -1,12 +1,13 @@
+import 'package:dir_khir/screens/discussion.dart';
 import 'package:flutter/material.dart';
 
 class RoomsUserList extends StatefulWidget {
-  final String name;
-  final String lastmessage;
-  final String time;
+  String name;
+  String lastmessage;
+  String time;
   //String photo;
-  RoomsUserList(this.name, this.lastmessage,
-      this.time); //, @required this.photo);
+  RoomsUserList(@required this.name, @required this.lastmessage,
+      @required this.time); //, @required this.photo);
   @override
   _RoomsUserListState createState() => _RoomsUserListState();
 }
@@ -23,7 +24,7 @@ class _RoomsUserListState extends State<RoomsUserList> {
       subtitle: Text(widget.lastmessage),
       trailing: Text(widget.time),
       //dense: true,
-      //onTap: ()=> ,
+      onTap: () => {Navigator.pushNamed(context, DiscussionPage.id)},
     );
   }
 }
