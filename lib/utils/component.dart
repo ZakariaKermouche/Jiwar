@@ -6,8 +6,9 @@ class MyButton extends StatelessWidget {
   final Color textColor;
   final Color color;
   final Function tap;
+  final double width;
 
-  MyButton({this.text, this.textColor, this.color, this.tap});
+  MyButton({this.text, this.textColor, this.color, this.width, this.tap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,9 @@ class MyButton extends StatelessWidget {
           decoration: BoxDecoration(
               color: color, borderRadius: BorderRadius.circular(8)),
           child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
             height: 50,
-            width: double.infinity,
+            width: width,
             child: Text(
               text,
               style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
