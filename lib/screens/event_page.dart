@@ -50,32 +50,32 @@ class _EventPageState extends State<EventPage> {
           child: Column(
             children: <Widget>[
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text("Test"),
-                  Text("Test"),
-                ],
+                  children: <Widget>[
+                    Expanded(child: Text(
+                      "Test",
+                    )),
+                    Expanded(child: Text("Test")),
+                  ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: (){
-                      Navigator.pushNamed(context, AddEvent.id);
-                    },
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        color: Colors.black
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: <Widget>[
+                    Expanded(
+
+                      child: MyButton(
+                        text: 'create event',
+                        textColor: Colors.white,
+                        color: Colors.indigoAccent,
+                        tap: (){
+                          Navigator.pushNamed(context, AddEvent.id);
+                        },
                       ),
-                      child: Container(
-                        height: 50,
-                        child: Text('create event',style: TextStyle(color: Colors.white,fontWeight:FontWeight.bold),),
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               )
             ],
           ),

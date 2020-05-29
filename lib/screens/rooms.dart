@@ -42,20 +42,15 @@ class _RoomsPageState extends State<RoomsPage> {
                         ),
                       ),
                     ),
-                    RoomsUserList("Team Bniwen", "bnina 7it",
-                        "12h30"), //+photo discusiion apres
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
-                    RoomsUserList("Team Bniwen", "bnina 7it", "12h30"),
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
+                    RoomsUserList(name:"Team Bniwen", lastmessage: "bnina 7it", time: "12h30"), //+photo discusiion apres
                   ],
                 ),
               ),

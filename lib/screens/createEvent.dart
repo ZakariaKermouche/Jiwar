@@ -69,7 +69,7 @@ class _AddEventState extends State<AddEvent> {
   PickedFile _image;
   final picker = ImagePicker();
   var url;
-  var eventId;
+  var _eventId;
   
   @override
   Widget build(BuildContext context) {
@@ -81,10 +81,10 @@ class _AddEventState extends State<AddEvent> {
         final ref = FirebaseStorage().ref().child(text);
         var imageString = await ref.getDownloadURL();
         setState(() {
-          eventId = loggedInUser.email + _date.toIso8601String() + _time.toString();
+          _eventId = loggedInUser.email + _date.toIso8601String() + _time.toString();
         });
         // Add location and url to database
-        await Firestore.instance.collection('storage').document().setData({'eventId': eventId,'url':imageString , 'location':text});
+        await Firestore.instance.collection('storage').document().setData({'eventId': _eventId,'url':imageString , 'location':text});
       }catch(e){
         print(e.message);
         showDialog(
@@ -306,18 +306,18 @@ class _AddEventState extends State<AddEvent> {
               textColor: Colors.white,
               color: Color(0xFFFD7F5B),
               tap: (){
-                _uploadImageToFirebase(_image);
                 _firestore.collection('events').add(
                   {
-                    'organizer': loggedInUser.email,
-                    'eventTitle': _eventTitle,
-                    'address': _address,
                     //'date': _date,
-                    'description': _description,
                     'coorganizer': _coorganizer,
-                    'photo': _image
+                    'description': _description,
+                    'address': _address,
+                    'eventId': _eventId,
+                    'eventTitle': _eventTitle,
+                    'organizer': loggedInUser.email,
                   }
                 );
+                _uploadImageToFirebase(_image);
               },
             ),
           ),
