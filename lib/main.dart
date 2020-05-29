@@ -1,3 +1,4 @@
+import 'package:dir_khir/screens/discussion.dart';
 import 'package:dir_khir/screens/navigation.dart';
 import 'package:dir_khir/screens/login.dart';
 import 'package:dir_khir/screens/onboard.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jiwar',
-      initialRoute: Onboard.id,
+      initialRoute: NavigationPage.id,
       routes: {
         Onboard.id: (context) => Onboard(),
         LoginPage.id: (context) => LoginPage(),
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         MapPage.id: (context) => MapPage(),
         NavigationPage.id: (context) => NavigationPage(),
         RoomsPage.id: (context) => RoomsPage(),
+        DiscussionPage.id: (context) => DiscussionPage(),
       },
     );
   }
