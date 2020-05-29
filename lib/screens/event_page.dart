@@ -1,4 +1,6 @@
+import 'package:dir_khir/screens/createEvent.dart';
 import 'package:dir_khir/utils/component.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventPage extends StatefulWidget {
@@ -45,12 +47,36 @@ class _EventPageState extends State<EventPage> {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
             children: <Widget>[
-              Text("Test"),
-              Text("Test"),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text("Test"),
+                  Text("Test"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: (){
+                      Navigator.pushNamed(context, AddEvent.id);
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: Colors.black
+                      ),
+                      child: Container(
+                        height: 50,
+                        child: Text('create event',style: TextStyle(color: Colors.white,fontWeight:FontWeight.bold),),
+                      ),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

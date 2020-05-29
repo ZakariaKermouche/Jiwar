@@ -1,3 +1,4 @@
+import 'package:dir_khir/screens/createEvent.dart';
 import 'package:dir_khir/screens/navigation.dart';
 import 'package:dir_khir/screens/login.dart';
 import 'package:dir_khir/screens/onboard.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         MapPage.id: (context) => MapPage(),
         NavigationPage.id: (context) => NavigationPage(),
         RoomsPage.id: (context) => RoomsPage(),
+        AddEvent.id: (context) => AddEvent(),
       },
     );
   }
