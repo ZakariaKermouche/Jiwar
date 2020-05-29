@@ -7,6 +7,8 @@ import 'package:dir_khir/screens/map.dart';
 import 'package:dir_khir/screens/rooms.dart';
 import 'package:flutter/material.dart';
 
+import 'screens/createEvent.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
         NavigationPage.id: (context) => NavigationPage(),
         RoomsPage.id: (context) => RoomsPage(),
         DiscussionPage.id: (context) => DiscussionPage(),
+        AddEvent.id: (context) => AddEvent(),
       },
     );
   }

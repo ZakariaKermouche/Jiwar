@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatUser {
-  //name of the room
+
   final String senderID;
   final String message;
   ChatUser({this.senderID, this.message});

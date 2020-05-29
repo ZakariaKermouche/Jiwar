@@ -1,7 +1,7 @@
 
 import 'dart:math';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dir_khir/utils/component.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,6 +32,8 @@ class _AddEventState extends State<AddEvent> {
   final _firestore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
+
+
 
   @override
   void initState(){
@@ -203,14 +205,38 @@ class _AddEventState extends State<AddEvent> {
           ),
           Container(
             padding: EdgeInsets.all(8),
-            child: MyButton(
+            /*child: MyButton(
               text: "Select Date",
               textColor: Colors.white,
               color: Colors.indigoAccent,
               tap: (){
                 _selectDate(context);
               },
-            ),
+            ),*/
+            child: FlatButton(
+                onPressed: () {
+
+                },
+                child: DateTimePickerWidget(
+                  initDateTime: DateTime.now(),
+                  dateFormat:  'yyyy-MM-dd HH:mm:ss',
+                  pickerTheme: DateTimePickerTheme(
+                    backgroundColor: Color(0xFFb2dfdb),
+                    cancelTextStyle: TextStyle(color: Colors.white),
+                    confirmTextStyle: TextStyle(color: Colors.black),
+                    itemTextStyle: TextStyle(color: Colors.deepOrange),
+                    pickerHeight: 300.0,
+                    titleHeight: 24.0,
+                    itemHeight: 30.0,
+                  ),
+                  onChange: (dateTime, selectedIndex) {
+                    setState(() {
+                      _date = dateTime;
+                    });
+                  },
+                ),
+
+                ),
           ),
           Container(
             height: maxLines * 24.0,

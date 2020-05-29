@@ -105,7 +105,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
                   
                 },
                     child: Icon(Icons.send, color: Colors.indigoAccent,) )
-              ],
+              ],1
             ),
           ],
         ),
