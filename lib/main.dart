@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import 'package:dir_khir/screens/discussion.dart';
-=======
-import 'package:dir_khir/screens/createEvent.dart';
->>>>>>> adc7979e3b5b3b0d847097db7b89042b21aa572f
 import 'package:dir_khir/screens/navigation.dart';
 import 'package:dir_khir/screens/login.dart';
 import 'package:dir_khir/screens/onboard.dart';
@@ -18,6 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jiwar',
+      theme: ThemeData(
+        primaryColor: Color(0xff7D2AE6),
+        accentColor: Color(0xffFE8A51),
+      ),
       initialRoute: Onboard.id,
       routes: {
         Onboard.id: (context) => Onboard(),
@@ -26,11 +26,7 @@ class MyApp extends StatelessWidget {
         MapPage.id: (context) => MapPage(),
         NavigationPage.id: (context) => NavigationPage(),
         RoomsPage.id: (context) => RoomsPage(),
-<<<<<<< HEAD
         DiscussionPage.id: (context) => DiscussionPage(),
-=======
-        AddEvent.id: (context) => AddEvent(),
->>>>>>> adc7979e3b5b3b0d847097db7b89042b21aa572f
       },
     );
   }

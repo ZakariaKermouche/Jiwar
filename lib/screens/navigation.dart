@@ -21,21 +21,27 @@ class _NavigationPageState extends State<NavigationPage> {
           backgroundColor: Colors.white,
           centerTitle: true,
           elevation: 1.0,
-          leading: new Icon(
-            Icons.settings,
-            color: Colors.black,
+          leading: Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: Icon(
+              Icons.settings,
+              size: 30,
+              color: Color(0xff7D2AE6),
+            ),
           ),
-          title: SizedBox(height: 35.0, child: Image.asset("images/test.png")),
+          title: SizedBox(height: 50.0, child: Image.asset("images/logo.PNG")),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 12.0),
               child: CircleAvatar(
                 maxRadius: 20,
-                child: Icon(Icons.account_circle),
-                //apres tji photo orofil t3 user -- khir  m icon lidertha abdenour
-                backgroundColor: Colors.black,
+                child: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                ),
+                backgroundColor: Color(0xff7D2AE6),
               ),
-            )
+            ),
           ],
         ),
         body: IndexedStack(
@@ -49,18 +55,28 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 5.0,
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xff7D2AE6),
+          selectedIconTheme: IconThemeData(color: Color(0xffFE8A51)),
           type: BottomNavigationBarType.fixed,
           iconSize: 30,
           currentIndex: _index,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.map), title: Text("Map")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), title: Text("Notifications")),
+                icon: Icon(
+                  Icons.map,
+                  color: Colors.white,
+                ),
+                title: Text("Map", style: TextStyle(color: Colors.white))),
             BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today), title: Text("Event")),
+                icon: Icon(Icons.notifications, color: Colors.white),
+                title: Text("Notifications",
+                    style: TextStyle(color: Colors.white))),
             BottomNavigationBarItem(
-                icon: Icon(Icons.chat), title: Text("Chat")),
+                icon: Icon(Icons.calendar_today, color: Colors.white),
+                title: Text("Events", style: TextStyle(color: Colors.white))),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.chat, color: Colors.white),
+                title: Text("Rooms", style: TextStyle(color: Colors.white))),
           ],
           onTap: (index) {
             setState(() {

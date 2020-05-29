@@ -12,9 +12,22 @@ class _OnboardState extends State<Onboard> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
   List<Widget> _pages = [
-    PageContent(),
-    PageContent(),
-    PageContent(),
+    PageContent(
+      title: 'Volunteer Nearby',
+      subtitle: 'Search for volunteering opportunities nearby and join them!',
+      imagePath: 'images/onboard1.PNG',
+    ),
+    PageContent(
+      title: 'Create Opportunities',
+      subtitle:
+          'Create volunteering events and invite the community to join you',
+      imagePath: 'images/onboard2.PNG',
+    ),
+    PageContent(
+      title: 'Volunteer Nearby',
+      subtitle: 'Search for volunteering opportunities nearby and join them!',
+      imagePath: 'images/onboard3.PNG',
+    ),
   ];
 
   List<Widget> _pageIndicator() {
@@ -34,7 +47,7 @@ class _OnboardState extends State<Onboard> {
       height: 8.0,
       width: isActive ? 24 : 16.0,
       decoration: BoxDecoration(
-          color: isActive ? Colors.black : Colors.grey,
+          color: isActive ? Color(0xff7D2AE6) : Colors.grey,
           borderRadius: BorderRadius.all(Radius.circular(12.0))),
     );
 
@@ -61,18 +74,7 @@ class _OnboardState extends State<Onboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                alignment: Alignment.centerRight,
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, LoginPage.id);
-                  },
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(color: Colors.black, fontSize: 20.0),
-                  ),
-                ),
-              ),
+              Spacer(),
               Expanded(
                 flex: 3,
                 child: PageView(
@@ -87,11 +89,25 @@ class _OnboardState extends State<Onboard> {
                 ),
               ),
               Expanded(
-                  flex: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _pageIndicator(),
-                  ))
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: _pageIndicator(),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, LoginPage.id);
+                  },
+                  child: Text(
+                    'Skip',
+                    style: TextStyle(color: Colors.black, fontSize: 20.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
             ],
           ),
         ),

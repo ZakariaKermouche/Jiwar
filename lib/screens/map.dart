@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as local;
 
-
 //import 'package:search_map_place/search_map_place.dart';
 
 Category choice = Category();
 final Map<String, Marker> _markers = {};
-
 
 class MapPage extends StatefulWidget {
   static String id = 'map';
@@ -30,7 +28,9 @@ class _MapPageState extends State<MapPage> {
             MyMap(),
             Column(
               children: <Widget>[
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Search(),
                 CategoryRow()
               ],
@@ -46,7 +46,6 @@ class CategoryRow extends StatefulWidget {
   @override
   _CategoryRowState createState() => _CategoryRowState();
 }
-
 
 class _CategoryRowState extends State<CategoryRow> {
   Category selectedChoice = Category();
@@ -89,22 +88,19 @@ class _CategoryRowState extends State<CategoryRow> {
     });
     return choices;
   }
-  
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-          child: Row(
-          children: _buildCategoriesChips(),
-        ),
+      child: Row(
+        children: _buildCategoriesChips(),
+      ),
     );
   }
 }
 
-
 class MyMap extends StatefulWidget {
-
   @override
   _MyMapState createState() => _MyMapState();
 }
@@ -123,18 +119,19 @@ class _MyMapState extends State<MyMap> {
 //  );
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _currentLocalisation();
   }
 
   _onMapCreated(controller) {
-      Completer<GoogleMapController> _controller = Completer();
+    Completer<GoogleMapController> _controller = Completer();
     _controller.complete(controller);
   }
 
   Future _getLocation() async {
-    var currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
 
     setState(() {
       _markers.clear();
@@ -147,8 +144,9 @@ class _MyMapState extends State<MyMap> {
     });
   }
 
-  _currentLocalisation() async{
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  _currentLocalisation() async {
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       _initialPosition = LatLng(position.latitude, position.longitude);
     });
@@ -159,16 +157,18 @@ class _MyMapState extends State<MyMap> {
     zoom: 12,
   );
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //height: MediaQuery.of(context).size.height,
       //width: MediaQuery.of(context).size.width,
-      /*child: */body: GoogleMap(
+      /*child: */ body: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition: CameraPosition(target: _initialPosition,zoom: 12),//CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
-        onMapCreated:_onMapCreated(controller),
+        initialCameraPosition: CameraPosition(
+            target: _initialPosition,
+            zoom:
+                12), //CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
+        onMapCreated: _onMapCreated(controller),
         markers: _markers.values.toSet(),
 //        {
 //          darnaMarker,
@@ -195,12 +195,8 @@ class _MyMapState extends State<MyMap> {
         child: Icon(Icons.location_on),
       ),
     );
-
-
   }
-
 }
-
 
 class Search extends StatefulWidget {
   @override
@@ -219,24 +215,26 @@ class _SearchState extends State<Search> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
         ),
-          child: TextField(
+        child: TextField(
           textAlign: TextAlign.center,
           decoration: InputDecoration(
-            hintText: "Seach",
+            hintText: "Seach...",
             hintStyle: TextStyle(
               color: Color(0xFF757575),
               fontSize: 20,
-              ),
-              prefixIcon: Icon(Icons.search, color: Color(0xFF757575),),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30) 
-              ),
-              contentPadding: EdgeInsets.symmetric(),
-              fillColor: Color(0xFFFFFFFF),
-              filled: true,
+            ),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color(0xFF757575),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            focusedBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+            contentPadding: EdgeInsets.symmetric(),
+            fillColor: Color(0xFFFFFFFF),
+            filled: true,
           ),
         ),
       ),
@@ -244,9 +242,7 @@ class _SearchState extends State<Search> {
   }
 }
 
-
-
-  /*
+/*
     Completer<GoogleMapController> _controller = Completer();
     Location location = new Location(); 
     GoogleMapController controller;

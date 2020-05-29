@@ -12,7 +12,6 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  
   final _auth = FirebaseAuth.instance;
 
   String mail;
@@ -20,45 +19,43 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff7D2AE6),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      'Jiwar',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    Image(
+                      image: AssetImage('images/logo2.png'),
                     ),
                     SizedBox(
                       height: 6,
                     ),
                     Text(
-                      'Create an account ',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey.shade400),
+                      'Create an account',
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                    Text(
+                      'Start your volunteering journey now!',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Padding(
-                  padding: EdgeInsets.only( top: 10.0),
+                  padding: EdgeInsets.only(top: 10.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      
                       children: <Widget>[
                         /*TextField(
                           keyboardType: TextInputType.text,
@@ -77,7 +74,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         TextField(
                           keyboardType: TextInputType.emailAddress,
                           textAlign: TextAlign.center,
-                          onChanged: (value){
+                          onChanged: (value) {
                             mail = value;
                           },
                           decoration: kTextFieldDecoration.copyWith(
@@ -91,7 +88,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         TextField(
                           textAlign: TextAlign.center,
                           obscureText: true,
-                          onChanged: (value){
+                          onChanged: (value) {
                             password = value;
                           },
                           decoration: kTextFieldDecoration.copyWith(
@@ -104,15 +101,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         MyButton(
                           text: 'REGISTER',
-                          color: Colors.green,
+                          color: Color(0xffFE8A51),
                           textColor: Colors.white,
                           tap: () async {
-                            try{
-                              final newUser = await _auth.createUserWithEmailAndPassword(email: mail, password: password);
-                              if(newUser != null){
+                            try {
+                              final newUser =
+                                  await _auth.createUserWithEmailAndPassword(
+                                      email: mail, password: password);
+                              if (newUser != null) {
                                 Navigator.pushNamed(context, LoginPage.id);
                               }
-                            }catch(e){
+                            } catch (e) {
                               print(e);
                             }
                           },
@@ -122,16 +121,30 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 8.3) ,child: Row(
-
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[Text('I\'m already a member.' ,style: TextStyle(fontWeight: FontWeight.bold ),),GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text(' Login.' ,style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold ),),
-                ),],
-              ),),
+              Padding(
+                padding: EdgeInsets.only(top: 8.3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'I\'m already a member.',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        ' Login.',
+                        style: TextStyle(
+                            color: Color(0xffFE8A51),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

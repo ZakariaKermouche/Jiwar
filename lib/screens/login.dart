@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class LoginPage extends StatefulWidget {
   static String id = 'login';
   @override
@@ -14,7 +13,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final _auth = FirebaseAuth.instance;
   String mail;
   String password;
@@ -23,48 +21,47 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff7D2AE6),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      'Dir Khir',
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    Image(
+                      image: AssetImage('images/logo2.png'),
                     ),
                     SizedBox(
                       height: 6,
                     ),
                     Text(
-                      'Sign in to continue!',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey.shade400),
+                      'Welcome to Jiwar',
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                    Text(
+                      'Start your volunteering journey now!',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Padding(
-                  padding: EdgeInsets.only( top: 10.0),
+                  padding: EdgeInsets.only(top: 10.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      
                       children: <Widget>[
                         TextField(
                           keyboardType: TextInputType.emailAddress,
                           textAlign: TextAlign.center,
-                          onChanged: (value){
+                          onChanged: (value) {
                             mail = value;
                           },
                           decoration: kTextFieldDecoration.copyWith(
@@ -78,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextField(
                           textAlign: TextAlign.center,
                           obscureText: true,
-                          onChanged: (value){
+                          onChanged: (value) {
                             password = value;
                           },
                           decoration: kTextFieldDecoration.copyWith(
@@ -90,16 +87,18 @@ class _LoginPageState extends State<LoginPage> {
                           height: 32,
                         ),
                         MyButton(
-                          text: 'LOGIN',
-                          color: primaryColor,
+                          text: 'SING IN',
+                          color: Color(0xffFE8A51),
                           textColor: Colors.white,
                           tap: () async {
-                            try{
-                              final login = await _auth.signInWithEmailAndPassword(email: mail, password: password);
-                              if (login != null){
+                            try {
+                              final login =
+                                  await _auth.signInWithEmailAndPassword(
+                                      email: mail, password: password);
+                              if (login != null) {
                                 Navigator.pushNamed(context, NavigationPage.id);
                               }
-                            }catch(e){
+                            } catch (e) {
                               print(e);
                             }
                           },
@@ -109,16 +108,30 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 8.3) ,child: Row(
-
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[Text('I\'m a new user.' ,style: TextStyle(fontWeight: FontWeight.bold ),),GestureDetector(
-                  onTap: (){
-                    Navigator.pushNamed(context, RegistrationPage.id);
-                  },
-                  child: Text(' Register' ,style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold ),),
-                ),],
-              ),),
+              Padding(
+                padding: EdgeInsets.only(top: 8.3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'I\'m a new user.',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RegistrationPage.id);
+                      },
+                      child: Text(
+                        ' Register',
+                        style: TextStyle(
+                            color: Color(0xffFE8A51),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
