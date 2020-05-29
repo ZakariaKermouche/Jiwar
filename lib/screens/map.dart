@@ -172,8 +172,8 @@ class _MyMapState extends State<MyMap> {
                 12), //CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),
         onMapCreated: _onMapCreated(controller),
 
-        //initialCameraPosition: CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),//CameraPosition(target: _initialPosition,zoom: 12),//
-        //onMapCreated:_onMapCreated(controller),
+//        initialCameraPosition: CameraPosition(target: LatLng(36.733332, 3.093334), zoom: 12),//CameraPosition(target: _initialPosition,zoom: 12),//
+//        onMapCreated:_onMapCreated(controller),
         markers: _markers.values.toSet(),
       ),
       floatingActionButton: FloatingActionButton(
