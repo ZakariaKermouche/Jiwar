@@ -24,7 +24,7 @@ class _OnboardState extends State<Onboard> {
       imagePath: 'images/onboard2.PNG',
     ),
     PageContent(
-      title: 'Reviewing volunteering event',
+      title: 'Reviewing events',
       subtitle:
           'Making volunteering accessible to everyone and Sharing experiences',
       imagePath: 'images/onboard3.PNG',
