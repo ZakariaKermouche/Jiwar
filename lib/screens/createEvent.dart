@@ -26,10 +26,9 @@ class _AddEventState extends State<AddEvent> {
   String _eventTitle;
   String _address;
   String _description;
-  bool _coorganizer;
+  bool _coorganizer = false;
 
   final _firestore_event = Firestore.instance;
-  final _firestore_room = Firestore.instance;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
@@ -302,7 +301,9 @@ class _AddEventState extends State<AddEvent> {
                       color: Color(0xff7D2AE6),
                       textColor: Colors.white,
                       tap: () {
-                        _coorganizer = true;
+                        setState(() {
+                          _coorganizer = true;
+                        });
                       },
                     ),
                   ),
@@ -315,7 +316,9 @@ class _AddEventState extends State<AddEvent> {
                       color: Color(0xff7D2AE6),
                       textColor: Colors.white,
                       tap: () {
-                        _coorganizer = false;
+                        setState(() {
+                          _coorganizer = false;
+                        });
                       },
                     ),
                   ),
@@ -333,7 +336,7 @@ class _AddEventState extends State<AddEvent> {
                 color: Color(0xFFFD7F5B),
                 tap: () {
                   _firestore_event.collection('events').add({
-                    //'date': _date,
+                    'date': _date,
                     'coorganizer': _coorganizer,
                     'description': _description,
                     'address': _address,
@@ -341,13 +344,14 @@ class _AddEventState extends State<AddEvent> {
                     'eventTitle': _eventTitle,
                     'organizer': loggedInUser.email,
                   });
-                  _firestore_room.collection('/Rooms').document('ta3awon').setData({
-                    'creator': loggedInUser,
-                    'event_name':_eventTitle,
+                  _firestore_event.collection('Rooms').document(_eventTitle[0].toUpperCase()+_eventTitle.substring(1)).setData({
+                    'creator': loggedInUser.email,
                     'event_date':_date,
+                    'event_name':_eventTitle,
                     'text':_description,
                   });
                   _uploadImageToFirebase(_image);
+                  Navigator.pop(context);
                 },
               ),
             ),
