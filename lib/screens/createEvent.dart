@@ -28,7 +28,8 @@ class _AddEventState extends State<AddEvent> {
   String _description;
   bool _coorganizer;
 
-  final _firestore = Firestore.instance;
+  final _firestore_event = Firestore.instance;
+  final _firestore_room = Firestore.instance;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
@@ -151,10 +152,10 @@ class _AddEventState extends State<AddEvent> {
               },
             ),
           ),
-            SizedBox(
+          SizedBox(
               height: 20,
             ),
-           Text(
+          Text(
               'Event Address',
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -162,7 +163,7 @@ class _AddEventState extends State<AddEvent> {
                 color: Color(0xff7D2AE6),
               ),
             ),
-      Text(
+          Text(
               'Please locate the event address in the map',
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -171,8 +172,6 @@ class _AddEventState extends State<AddEvent> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
-
           SizedBox(height: 20,),
           Container(
             padding: EdgeInsets.all(8),
@@ -333,7 +332,7 @@ class _AddEventState extends State<AddEvent> {
                 textColor: Colors.white,
                 color: Color(0xFFFD7F5B),
                 tap: () {
-                  _firestore.collection('events').add({
+                  _firestore_event.collection('events').add({
                     //'date': _date,
                     'coorganizer': _coorganizer,
                     'description': _description,
@@ -341,6 +340,12 @@ class _AddEventState extends State<AddEvent> {
                     'eventId': _eventId,
                     'eventTitle': _eventTitle,
                     'organizer': loggedInUser.email,
+                  });
+                  _firestore_room.collection('/Rooms').document('ta3awon').setData({
+                    'creator': loggedInUser,
+                    'event_name':_eventTitle,
+                    'event_date':_date,
+                    'text':_description,
                   });
                   _uploadImageToFirebase(_image);
                 },

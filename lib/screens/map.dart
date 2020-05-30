@@ -117,13 +117,6 @@ class _MyMapState extends State<MyMap> {
 //    BitmapDescriptor.hueViolet,
 //    ),
 //  );
-
-  @override
-  void initState() {
-    super.initState();
-    _currentLocalisation();
-  }
-
   _onMapCreated(controller) {
     Completer<GoogleMapController> _controller = Completer();
     _controller.complete(controller);
@@ -158,12 +151,23 @@ class _MyMapState extends State<MyMap> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    _currentLocalisation();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       //height: MediaQuery.of(context).size.height,
       //width: MediaQuery.of(context).size.width,
       /*child: */
-      body: GoogleMap(
+      body: (_initialPosition == null) ? Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.lightBlueAccent,
+        ),
+      ) :GoogleMap(
         mapType: MapType.normal,
 
         initialCameraPosition: CameraPosition(

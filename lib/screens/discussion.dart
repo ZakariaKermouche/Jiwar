@@ -88,6 +88,7 @@ class _DiscussionPageState extends State<DiscussionPage> {
                   SizedBox(height: 20),
                   Expanded(
                     child: TextField(
+                      controller: messageTextController,
                       decoration: InputDecoration(
                         hintText: "Tap your message here ...",
                         hintStyle: TextStyle(color: Colors.grey.shade500),
