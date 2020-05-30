@@ -1,4 +1,3 @@
-
 import 'dart:math';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,8 +32,6 @@ class _AddEventState extends State<AddEvent> {
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
-
-
   @override
   void initState(){
     super.initState();
@@ -45,22 +42,22 @@ class _AddEventState extends State<AddEvent> {
   void getCurrentUser() async{
     try{
       final user = await _auth.currentUser();
-      if(user != null){
+      if (user != null) {
         loggedInUser = user;
       }
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
-  
+
   Future _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: _date,
-        firstDate: new DateTime(2020),
-        lastDate: new DateTime(2030),
+      context: context,
+      initialDate: _date,
+      firstDate: new DateTime(2020),
+      lastDate: new DateTime(2030),
     );
-    if (picked != null && picked != _date){
+    if (picked != null && picked != _date) {
       print('Date selected: ${_date.toString()}');
       setState(() {
         _date = picked;
@@ -72,7 +69,7 @@ class _AddEventState extends State<AddEvent> {
   final picker = ImagePicker();
   var url;
   var _eventId;
-  
+
   @override
   Widget build(BuildContext context) {
     final maxLines = 5;
@@ -122,9 +119,6 @@ class _AddEventState extends State<AddEvent> {
       });
     }
 
-
-
-
     return Scaffold(
       appBar: new AppBar(
         title: Text('Add Event'),
@@ -150,23 +144,25 @@ class _AddEventState extends State<AddEvent> {
                 _eventTitle = value;
               },
             ),
-          ),
-          SizedBox(height: 20,),
-          Text(
-            'Event Address',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.indigoAccent,
+            SizedBox(
+              height: 20,
             ),
-          ),
-          Text(
-            'Please locate the event address in the map',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+            Text(
+              'Event Address',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 20,
+                color: Color(0xff7D2AE6),
+              ),
+            ),
+            Text(
+              'Please locate the event address in the map',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
 
@@ -187,153 +183,135 @@ class _AddEventState extends State<AddEvent> {
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
-          ),
-          SizedBox(height: 7,),
-          Theme(
-            data: new ThemeData(
-              primaryColor: Colors.indigoAccent,
-              primaryColorDark: Colors.indigo,
+            SizedBox(
+              height: 7,
             ),
-            child: TextField(
-              textAlign: TextAlign.start,
-              keyboardType: TextInputType.text,
-              decoration: kTextFieldDecoration,
-              onChanged: (value) {
-                _address = value;
-              },
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(8),
-            /*child: MyButton(
-              text: "Select Date",
-              textColor: Colors.white,
-              color: Colors.indigoAccent,
-              tap: (){
-                _selectDate(context);
-              },
-            ),*/
-            child: FlatButton(
-                onPressed: () {
-
-                },
-                child: DateTimePickerWidget(
-                  initDateTime: DateTime.now(),
-                  dateFormat:  'yyyy-MM-dd HH:mm:ss',
-                  pickerTheme: DateTimePickerTheme(
-                    backgroundColor: Color(0xFFb2dfdb),
-                    cancelTextStyle: TextStyle(color: Colors.white),
-                    confirmTextStyle: TextStyle(color: Colors.black),
-                    itemTextStyle: TextStyle(color: Colors.deepOrange),
-                    pickerHeight: 300.0,
-                    titleHeight: 24.0,
-                    itemHeight: 30.0,
-                  ),
-                  onChange: (dateTime, selectedIndex) {
-                    setState(() {
-                      _date = dateTime;
-                    });
-                  },
-                ),
-
-                ),
-          ),
-          Container(
-            height: maxLines * 24.0,
-            child: Theme(
+            Theme(
               data: new ThemeData(
-                primaryColor: Colors.indigoAccent,
-                primaryColorDark: Colors.indigo,
+                primaryColor: Color(0xff7D2AE6),
+                primaryColorDark: Color(0xff7D2AE6),
               ),
-
               child: TextField(
-                maxLines: maxLines,
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.text,
-                decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Description',
-                  labelText: 'Add a description to the event'
-                ),
+                decoration: kTextFieldDecoration,
                 onChanged: (value) {
-                  _description = value;
+                  _address = value;
                 },
               ),
             ),
-          ),
-          SizedBox(height: 20,),
-          Text(
-            'if you have a photo of the event, please choose it from your gallery',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(8),
-            child: MyButton(
-              text: "Select from Phone",
-              textColor: Colors.white,
-              color: Colors.indigoAccent,
-              tap: (){
-                getImage();
+            Container(
+              padding: EdgeInsets.all(8),
+              child: MyButton(
+                text: "Select Date",
+                textColor: Colors.white,
+                color: Color(0xff7D2AE6),
+                tap: () {
+                  _selectDate(context);
                 },
-            ),
-          ),
-          SizedBox(height: 20,),
-          Text(
-            'Do you have a co-organaizer ?',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 7,),
-          Container(
-            padding: EdgeInsets.all(8),
-            child:Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Expanded(
-                  child: MyButton(
-                    text: 'yes',
-                    color: Colors.indigoAccent,
-                    textColor: Colors.white,
-                    tap: (){
-                      _coorganizer = true;
-                    },
-                  ),
-                ),
-              SizedBox(
-                width: 12,
               ),
-                Expanded(
-                  child: MyButton(
-                    text: 'no',
-                    color: Colors.indigoAccent,
-                    textColor: Colors.white,
-                    tap: (){
-                      _coorganizer = false;
-                    },
-                  ),
+            ),
+            Container(
+              height: maxLines * 24.0,
+              child: Theme(
+                data: new ThemeData(
+                  primaryColor: Color(0xff7D2AE6),
+                  primaryColorDark: Color(0xff7D2AE6),
                 ),
-              ],
+                child: TextField(
+                  maxLines: maxLines,
+                  textAlign: TextAlign.start,
+                  keyboardType: TextInputType.text,
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Description',
+                      labelText: 'Add a description to the event'),
+                  onChanged: (value) {
+                    _description = value;
+                  },
+                ),
               ),
-      ),
-          SizedBox(height: 7,),
-          Container(
-            padding: EdgeInsets.all(8),
-            child: MyButton(
-              text: 'Submit',
-              textColor: Colors.white,
-              color: Color(0xFFFD7F5B),
-              tap: (){
-                _firestore.collection('events').add(
-                  {
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'if you have a photo of the event, please choose it from your gallery',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              child: MyButton(
+                text: "Select from Phone",
+                textColor: Colors.white,
+                color: Color(0xff7D2AE6),
+                tap: () {
+                  getImage();
+                },
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Do you have a co-organaizer ?',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 7,
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Expanded(
+                    child: MyButton(
+                      text: 'yes',
+                      color: Color(0xff7D2AE6),
+                      textColor: Colors.white,
+                      tap: () {
+                        _coorganizer = true;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: MyButton(
+                      text: 'no',
+                      color: Color(0xff7D2AE6),
+                      textColor: Colors.white,
+                      tap: () {
+                        _coorganizer = false;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 7,
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              child: MyButton(
+                text: 'Submit',
+                textColor: Colors.white,
+                color: Color(0xFFFD7F5B),
+                tap: () {
+                  _firestore.collection('events').add({
                     //'date': _date,
                     'coorganizer': _coorganizer,
                     'description': _description,
@@ -341,16 +319,12 @@ class _AddEventState extends State<AddEvent> {
                     'eventId': _eventId,
                     'eventTitle': _eventTitle,
                     'organizer': loggedInUser.email,
-                  }
-                );
-                _uploadImageToFirebase(_image);
-              },
+                  });
+                  _uploadImageToFirebase(_image);
+                },
+              ),
             ),
-          ),
-      ]
-    ),
+          ]),
     );
   }
-
-
 }

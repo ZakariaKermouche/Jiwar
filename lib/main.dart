@@ -1,13 +1,14 @@
+import 'package:dir_khir/screens/createEvent.dart';
 import 'package:dir_khir/screens/discussion.dart';
 import 'package:dir_khir/screens/navigation.dart';
 import 'package:dir_khir/screens/login.dart';
+import 'package:dir_khir/screens/notification.dart';
 import 'package:dir_khir/screens/onboard.dart';
+import 'package:dir_khir/screens/profile.dart';
 import 'package:dir_khir/screens/registeration.dart';
 import 'package:dir_khir/screens/map.dart';
 import 'package:dir_khir/screens/rooms.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/createEvent.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
         RoomsPage.id: (context) => RoomsPage(),
         DiscussionPage.id: (context) => DiscussionPage(),
         AddEvent.id: (context) => AddEvent(),
+        Profile.id: (context) => Profile(),
+        NotificationPage.id: (context) => NotificationPage(),
       },
     );
   }
