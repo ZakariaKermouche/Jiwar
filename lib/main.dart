@@ -1,7 +1,10 @@
+import 'package:dir_khir/screens/createEvent.dart';
 import 'package:dir_khir/screens/discussion.dart';
 import 'package:dir_khir/screens/navigation.dart';
 import 'package:dir_khir/screens/login.dart';
+import 'package:dir_khir/screens/notification.dart';
 import 'package:dir_khir/screens/onboard.dart';
+import 'package:dir_khir/screens/profile.dart';
 import 'package:dir_khir/screens/registeration.dart';
 import 'package:dir_khir/screens/map.dart';
 import 'package:dir_khir/screens/rooms.dart';
@@ -27,6 +30,9 @@ class MyApp extends StatelessWidget {
         NavigationPage.id: (context) => NavigationPage(),
         RoomsPage.id: (context) => RoomsPage(),
         DiscussionPage.id: (context) => DiscussionPage(),
+        AddEvent.id: (context) => AddEvent(),
+        Profile.id: (context) => Profile(),
+        NotificationPage.id: (context) => NotificationPage(),
       },
     );
   }

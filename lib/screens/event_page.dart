@@ -3,6 +3,10 @@ import 'package:dir_khir/utils/component.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/*
+        Color(0xff7D2AE6),
+        Color(0xffFE8A51),
+*/
 class EventPage extends StatefulWidget {
   @override
   _EventPageState createState() => _EventPageState();
@@ -13,6 +17,8 @@ List<Widget> _cards = [
   EventCard(),
   EventCard(),
 ];
+
+List<bool> isSelected = [true, false];
 
 class _EventPageState extends State<EventPage> {
   final PageController _cardController =
@@ -45,20 +51,36 @@ class _EventPageState extends State<EventPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Text(
-                    "Test",
-                  )),
-                  Expanded(child: Text("Test")),
-                ],
-              ),
-            ],
+        //SizedBox(height: 20),
+        Padding(
+          padding: EdgeInsets.all(30),
+          child: Center(
+            child: ToggleButtons(
+              borderRadius: BorderRadius.circular(20),
+              borderWidth: 2,
+              color: Color(0xff7D2AE6),
+              borderColor: Color(0xff7D2AE6),
+              fillColor: Color(0xffFE8A51),
+              selectedColor: Colors.white,
+              selectedBorderColor: Color(0xff7D2AE6),
+              children: <Widget>[
+                Text(
+                  "   My Events   ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "   UpComming   ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+              isSelected: isSelected,
+              onPressed: (int index) {
+                setState(() {
+                  isSelected[0] = !isSelected[0];
+                  isSelected[1] = !isSelected[1];
+                });
+              },
+            ),
           ),
         ),
         Expanded(

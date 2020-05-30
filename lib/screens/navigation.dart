@@ -1,4 +1,6 @@
 import 'package:dir_khir/screens/map.dart';
+import 'package:dir_khir/screens/notification.dart';
+import 'package:dir_khir/screens/profile.dart';
 import 'package:dir_khir/screens/rooms.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +38,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 maxRadius: 20,
                 child: IconButton(
                   icon: Icon(Icons.account_circle, color: Colors.white),
-                  onPressed: () => {},
+                  onPressed: () => {Navigator.pushNamed(context, Profile.id)},
                 ),
                 backgroundColor: Color(0xff7D2AE6),
               ),
@@ -47,7 +49,7 @@ class _NavigationPageState extends State<NavigationPage> {
           index: _index,
           children: <Widget>[
             MapPage(),
-            Scaffold(),
+            NotificationPage(),
             EventPage(),
             RoomsPage(),
           ],
@@ -68,8 +70,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 title: Text("Map", style: TextStyle(color: Colors.white))),
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications, color: Colors.white),
-                title: Text("Notifications",
-                    style: TextStyle(color: Colors.white))),
+                title: Text("Notifs", style: TextStyle(color: Colors.white))),
             BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_today, color: Colors.white),
                 title: Text("Events", style: TextStyle(color: Colors.white))),
