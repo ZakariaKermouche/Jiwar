@@ -155,7 +155,7 @@ class _RoomsStreamsState extends State<RoomsStreams> {
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
+                backgroundColor: Colors.indigoAccent,
               ),
             );
           }
@@ -253,7 +253,7 @@ class _RoomBubbleState extends State<RoomBubble> {
   var _lastMessageTime;
 
   void getLastMessage(roomName)async{
-    print(roomName);
+    //print(roomName);
     var room = _firestore.collection('Rooms').document(roomName);
     await for(var snapshot in room.collection('chat').orderBy('time').snapshots()){
       for(var message in snapshot.documents){
@@ -261,7 +261,7 @@ class _RoomBubbleState extends State<RoomBubble> {
           _lastMessage = message.data['message'];
           _lastMessageTime = DateTime.fromMillisecondsSinceEpoch(message.data['time'].seconds*1000);
         });
-        print(DateTime.fromMillisecondsSinceEpoch(message.data['time'].seconds*1000));
+        //print(DateTime.fromMillisecondsSinceEpoch(message.data['time'].seconds*1000));
       }
     }
   }
@@ -270,11 +270,13 @@ class _RoomBubbleState extends State<RoomBubble> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLastMessage(Text(widget.name).data);
+    //getLastMessage(Text(widget.name).data);
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
+    getLastMessage(Text(widget.name).data);
     return ListTile(
       leading: CircleAvatar(
         //backgroundImage: AssetImage(widget.photo),
@@ -283,8 +285,10 @@ class _RoomBubbleState extends State<RoomBubble> {
         maxRadius: 30,
       ),
       title: Text(widget.name),
-      subtitle: Text(_lastMessage),
-      trailing: Text(_lastMessageTime.toString()),
+      subtitle: Text((_lastMessage == null) ? 'Start the discussion' : _lastMessage),
+      trailing: Text(
+          (_lastMessageTime == null) ? '' : _lastMessageTime.toString(),
+      ),
       //dense: true,
       onTap: () => {
         Navigator.push(
