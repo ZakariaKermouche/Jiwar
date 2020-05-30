@@ -63,17 +63,17 @@ class _ProfileState extends State<Profile> {
                   selectedBorderColor: Color(0xff7D2AE6),
                   children: <Widget>[
                     Text(
-                      "   Organisation   ",
+                      " Organisation ",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "   Participation   ",
+                      " Participation ",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "      Reviews     ",
+                      "  Reviews  ",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
