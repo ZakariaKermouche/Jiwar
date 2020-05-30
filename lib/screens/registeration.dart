@@ -80,6 +80,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           decoration: kTextFieldDecoration.copyWith(
                             labelText: 'E-mail',
                             hintText: 'Enter your E-mail',
+                            hintStyle: TextStyle(
+                              color: Colors.white70,
+                            ),
+                            labelStyle:TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -94,6 +100,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           decoration: kTextFieldDecoration.copyWith(
                             labelText: 'Password',
                             hintText: 'Enter your Password',
+                            hintStyle: TextStyle(
+                              color: Colors.white70,
+                            ),
+                            labelStyle:TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         SizedBox(

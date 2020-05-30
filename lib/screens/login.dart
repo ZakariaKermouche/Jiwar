@@ -64,9 +64,19 @@ class _LoginPageState extends State<LoginPage> {
                           onChanged: (value) {
                             mail = value;
                           },
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                           decoration: kTextFieldDecoration.copyWith(
                             labelText: 'E-mail',
                             hintText: 'Enter your E-mail',
+
+                            hintStyle: TextStyle(
+                              color: Colors.white70,
+                            ),
+                            labelStyle:TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -78,9 +88,18 @@ class _LoginPageState extends State<LoginPage> {
                           onChanged: (value) {
                             password = value;
                           },
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                           decoration: kTextFieldDecoration.copyWith(
                             labelText: 'Password',
                             hintText: 'Enter your Password',
+                            hintStyle: TextStyle(
+                              color: Colors.white70,
+                            ),
+                            labelStyle:TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         SizedBox(

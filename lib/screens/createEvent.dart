@@ -139,15 +139,22 @@ class _AddEventState extends State<AddEvent> {
               decoration: kTextFieldDecoration.copyWith(
                 hintText: 'Event Title',
                 labelText: 'Event Title',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.indigoAccent, width: 1.0),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.indigoAccent, width: 2.0),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),)
               ),
               onChanged: (value){
                 _eventTitle = value;
               },
             ),
+          ),
             SizedBox(
               height: 20,
             ),
-            Text(
+           Text(
               'Event Address',
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -155,7 +162,7 @@ class _AddEventState extends State<AddEvent> {
                 color: Color(0xff7D2AE6),
               ),
             ),
-            Text(
+      Text(
               'Please locate the event address in the map',
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -164,7 +171,7 @@ class _AddEventState extends State<AddEvent> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
+
 
           SizedBox(height: 20,),
           Container(
@@ -183,6 +190,7 @@ class _AddEventState extends State<AddEvent> {
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
+          ),
             SizedBox(
               height: 7,
             ),
@@ -194,7 +202,14 @@ class _AddEventState extends State<AddEvent> {
               child: TextField(
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.text,
-                decoration: kTextFieldDecoration,
+                decoration: kTextFieldDecoration.copyWith(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.indigoAccent, width: 1.0),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.indigoAccent, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),)
+                ),
                 onChanged: (value) {
                   _address = value;
                 },
@@ -224,7 +239,14 @@ class _AddEventState extends State<AddEvent> {
                   keyboardType: TextInputType.text,
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Description',
-                      labelText: 'Add a description to the event'),
+                      labelText: 'Add a description to the event',
+
+                enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.indigoAccent, width: 1.0),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.indigoAccent, width: 2.0),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),)),
                   onChanged: (value) {
                     _description = value;
                   },

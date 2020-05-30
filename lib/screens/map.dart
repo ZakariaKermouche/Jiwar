@@ -137,7 +137,7 @@ class _MyMapState extends State<MyMap> {
       _markers.clear();
       final marker = Marker(
         markerId: MarkerId("curr_loc"),
-        position: LatLng(36.79155991, 3.2855173),
+        position: LatLng(currentLocation.latitude,currentLocation.longitude),
         infoWindow: InfoWindow(title: 'Your Location'),
       );
       _markers["Current Location"] = marker;

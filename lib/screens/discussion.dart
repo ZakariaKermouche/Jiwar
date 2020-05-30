@@ -1,127 +1,239 @@
-import 'package:dir_khir/model/ChatUser.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+final _firestore = Firestore.instance;
+FirebaseUser loggedInUser;
 
 class DiscussionPage extends StatefulWidget {
-  static String id = 'discussion';
+  static const String id = 'discussion';
+
+  DiscussionPage({this.title});
+  final String title;
+  static String nameDisc;
+  
   @override
   _DiscussionPageState createState() => _DiscussionPageState();
 }
-/*
-        Color(0xff7D2AE6),
-        Color(0xffFE8A51),
-*/
 
 class _DiscussionPageState extends State<DiscussionPage> {
-  //discussionModel disc = discussionModel.listMessages.elementAt(0);
-  String userOn = "1"; //logeduser
-  List<ChatUser> messages = ChatUser.listMessages.reversed.toList();
-
-  ///Backend
+  final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
-  String messageText;
 
-  ///End Backend
+
+
+  String messageText;
+  Timestamp messageTime;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrentUser();
+
+  }
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void roomName() async {
+    await for(var snapshot in _firestore.collection('Rooms').snapshots()){
+      for (var roomId in snapshot.documents) {
+        print(roomId.documentID);
+      }
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => {Navigator.pop(context)},
-          ),
-          title: Text("Name discussion"),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.info_outline),
-              onPressed: () => {
-                //Information of the discussion
-              },
-            )
-          ],
-          backgroundColor: Color(0xff7D2AE6),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => {Navigator.pop(context)},
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Text(widget.title),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.info_outline),
+            onPressed: () => {
+              //Information of the discussion
+            },
+          ),
+        ],
+        backgroundColor: Color(0xff7D2AE6),
+      ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: messages.length,
-                reverse: true,
-                itemBuilder: (context, index) {
-                  return Row(
-                    mainAxisAlignment: messages[index].senderID == userOn
-                        ? MainAxisAlignment.end
-                        : MainAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(padding: EdgeInsets.only(left: 5)),
-                      messages[index].senderID == userOn
-                          ? Container()
-                          : CircleAvatar(
-                              backgroundColor: Color(0xff7D2AE6),
-                              child: Icon(Icons.account_circle,
-                                  color: Colors.white),
-                            ),
-                      Container(
-                        constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width,
+            MessagesStream(title: widget.title),
+            Container(
+              child:   Row(
+                children: <Widget>[
+                  SizedBox(height: 20),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Tap your message here ...",
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        /*prefixIcon: Icon(Icons.text_format,
+                          color: Colors.grey.shade500, size: 20),*/
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide(color: Colors.purple),
                         ),
-                        padding: EdgeInsets.all(15),
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: messages[index].senderID == userOn
-                              ? Color(0xffFE8A51)
-                              : Color(0xff7D2AE6),
-                        ),
-                        child: Text("${messages[index].message}",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16)),
                       ),
-                    ],
-                  );
-                },
+                      onChanged: (value) {
+                        messageText = value;
+                        messageTime = Timestamp.fromDate(DateTime.now());
+                        roomName();
+                      },
+                    ),
+                  ),
+                  CircleAvatar(
+                    maxRadius: 28,
+                    backgroundColor: Color(0xff7D2AE6),
+                    child: IconButton(
+                      icon: Icon(Icons.send, color: Colors.white),
+                      onPressed: () => {
+                        messageTextController.clear(),
+                        _firestore.collection('Rooms').document(widget.title).collection('chat').add({
+                          'message': messageText,
+                          'sender': loggedInUser.email,
+                          'time': messageTime,
+                        })
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20,)
+                ],
               ),
             ),
-            Row(
-              children: <Widget>[
-                SizedBox(height: 20),
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Tap your message here ...",
-                      hintStyle: TextStyle(color: Colors.grey.shade500),
-                      /*prefixIcon: Icon(Icons.text_format,
-                          color: Colors.grey.shade500, size: 20),*/
-                      filled: true,
-                      fillColor: Colors.grey.shade100,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(color: Colors.purple),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      messageText = value;
-                    },
-                  ),
-                ),
-                CircleAvatar(
-                  maxRadius: 28,
-                  backgroundColor: Color(0xff7D2AE6),
-                  child: IconButton(
-                    icon: Icon(Icons.send, color: Colors.white),
-                    onPressed: () => {},
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
           ],
         ),
+      ),
+    );
+  }
+}
+
+
+
+class MessagesStream extends StatefulWidget {
+  MessagesStream({this.title});
+
+  final title;
+
+  @override
+  _MessagesStreamState createState() => _MessagesStreamState();
+}
+
+class _MessagesStreamState extends State<MessagesStream> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('Rooms').document(widget.title).collection('chat').orderBy('time',descending: false).snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlueAccent,
+            ),
+          );
+        }
+        final messages = snapshot.data.documents.reversed;
+        List<MessageBubble> messageBubbles = [];
+        for (var message in messages) {
+          final messageText = message.data['message'];
+          final messageSender = message.data['sender'];
+          final messageTime = message.data['time'];
+
+          final currentUser = loggedInUser.email;
+
+          final messageBubble = MessageBubble(
+            sender: messageSender,
+            text: messageText,
+            isMe: currentUser == messageSender,
+          );
+
+          messageBubbles.add(messageBubble);
+        }
+        return Expanded(
+          child: ListView(
+            reverse: true,
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            children: messageBubbles,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  MessageBubble({this.sender, this.text, this.isMe});
+
+  final String sender;
+  final String text;
+  final bool isMe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment:
+        isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            sender,
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
+            ),
+          ),
+          Material(
+            borderRadius: isMe
+                ? BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                bottomLeft: Radius.circular(30.0),
+                bottomRight: Radius.circular(30.0))
+                : BorderRadius.only(
+              bottomLeft: Radius.circular(30.0),
+              bottomRight: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            elevation: 5.0,
+            color: isMe ?  Color(0xffFE8A51)
+                : Color(0xff7D2AE6),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
